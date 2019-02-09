@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 // Import routers
 var indexRouter = require('./routes/index');
+var productsApiRouter = require('./routes/products-api');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // Setup routers
 app.use('/', indexRouter);
+app.use('/api', productsApiRouter);
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -31,7 +33,6 @@ app.use(function(req, res, next) {
 
 // Error handler
 app.use(function(err, req, res, next) {
-  console.log(err.message);
   // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
